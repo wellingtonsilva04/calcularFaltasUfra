@@ -5,7 +5,10 @@ import HomeScreen from "./screens/home";
 const AppNavigator = createStackNavigator(
     {
         Home: {
-            screen: HomeScreen
+            screen: HomeScreen,
+            navigationOptions:{
+                header: null
+            }
         },
     },
     {
