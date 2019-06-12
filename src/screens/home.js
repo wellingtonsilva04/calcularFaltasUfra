@@ -23,18 +23,27 @@ export default class HomeScreen extends Component {
     />
 
   )
+
+  setDisciplina = (disciplina) =>{
+    const {disciplinas} = this.state;
+    console.log(disciplina);
+    this.setState({disciplinas:[...disciplinas,disciplina]});
+
+  }
   render() {
     return (
       <View style={styles.container}>
         <FlatList
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item,index) => index.toString()}
           data={this.state.disciplinas}
           renderItem={({ item }) => this._renderItem(item)}
 
         />
 
         <View style={styles.viewbotaoAdd}>
-          <TouchableOpacity style={styles.botaoAdicionar} onPress={() => this.props.navigation.navigate('AddDisciplina')}>
+          <TouchableOpacity
+            style={styles.botaoAdicionar}
+            onPress={() => this.props.navigation.navigate('AddDisciplina',{setDisciplina: this.setDisciplina})}>
             <Icon name="md-add" size={30} color="black" />
           </TouchableOpacity>
         </View>
@@ -56,7 +65,7 @@ const styles = StyleSheet.create({
   botaoAdicionar: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9B9797',
+    backgroundColor: 'white',
     height: 50,
     width: 50,
     borderRadius: 25
