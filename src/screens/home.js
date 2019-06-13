@@ -7,17 +7,14 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disciplinas: [
-        { id: 1, nome: "BDII", qtFaltas: 5, qtAulas: 10, percentualPresenca: 80 },
-        { id: 2, nome: "Redes", qtFaltas: 5, qtAulas: 15, percentualPresenca: 78 }
-
-      ]
+      disciplinas: []
     };
   }
   _renderItem = (item) => (
     <Disciplina
       nome={item.nome}
       qtAulas={item.qtAulas}
+      qtFaltas={item.qtFaltas}
       percentualPresenca={item.percentualPresenca}
       onPress={() => ({})}
     />

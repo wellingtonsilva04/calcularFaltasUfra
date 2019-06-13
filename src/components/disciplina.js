@@ -9,11 +9,16 @@ export default class Disciplina extends Component {
   }
 
   render() {
+    const { onPress, nome, qtFaltas,qtAulas, percentualPresenca } = this.props;
+    console.log(qtFaltas);
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={styles.container}>
-        <Text style={styles.textNome}>{this.props.nome}</Text>
-        <Text style={styles.textQtAulas}>{this.props.qtAulas}</Text>
-        <Text style={styles.textPercentualPresenca}>{this.props.percentualPresenca}%</Text>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{...styles.container,backgroundColor: percentualPresenca < 75 ? "#ff4c4c":"white"}}>
+        <Text style={styles.textNome}>{nome}</Text>
+        <Text style={styles.textQtAulas}>{`Faltas: ${qtFaltas}`}</Text>
+        <Text style={styles.textQtAulas}>{`Aulas: ${qtAulas}`}</Text>
+        <Text style={styles.textPercentualPresenca}>{percentualPresenca}%</Text>
 
       </TouchableOpacity>
     );
@@ -34,17 +39,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   textNome: {
-    flex: 8,
+    flex: 6,
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 20
   },
   textQtAulas: {
-    flex: 1,
-    fontSize: 14
+    fontSize: 16, marginHorizontal: 5,
   },
   textPercentualPresenca: {
-    flex: 2,
-    fontSize: 14
+    marginHorizontal: 5,
+    fontSize: 16
 
   }
 })

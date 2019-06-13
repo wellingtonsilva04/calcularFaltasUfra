@@ -6,27 +6,30 @@ export default class InserirDisciplina extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nomeDisciplina: "",
-      numeroFaltas: 0,
-      numeroAulas: 0,
+      nome: "",
+      qtFaltas: 0,
+      qtAulas: 0,
       messageError: false
     };
   }
   calcularPorcentagem = ()=>{
-    const {nomeDisciplina,numeroAulas,numeroFaltas} = this.state;
-    if (nomeDisciplina === ""){
+    const {nome,qtAulas,qtFaltas} = this.state;
+    if (nome === ""){
       this.setState({messageError: true})
     }
-    const porcentagem = numeroFaltas / numeroAulas
+    let porcentagem = (qtAulas - qtFaltas) / qtAulas;
+    porcentagem = porcentagem * 100;
+    console.log(porcentagem);
+
     const { navigation } = this.props;
     const  setDisciplina = navigation.getParam('setDisciplina', 'NO-ID');
-    setDisciplina({nomeDisciplina,numeroAulas,numeroFaltas,percentualPresenca: porcentagem})
+    setDisciplina({nome,qtAulas,qtFaltas,percentualPresenca: porcentagem.toFixed(2)})
     navigation.goBack();
     
 
   }
   render() {
-    const {messageError,nomeDisciplina,numeroAulas,numeroFaltas} = this.state;
+    const {messageError,nome,qtAulas,qtFaltas} = this.state;
     return (
       <KeyboardAvoidingView style={{marginHorizontal: 10,}} behavior="padding" enabled>
         
@@ -35,20 +38,20 @@ export default class InserirDisciplina extends Component {
           inputContainerStyle={{borderBottomWidth: 0,marginHorizontal: 10, }}
           errorMessage= {messageError ? "* Escolha um nome pra disciplina":"" }
           
-          onChangeText={(text) => this.setState({ nomeDisciplina: text })}
+          onChangeText={(text) => this.setState({ nome: text })}
           placeholder={"Disciplina"}
         />
         <Input
           containerStyle={{ marginVertical: 5, borderWidth: 1, borderRadius: 10, padding: 5, }}
           keyboardType='numeric'
           inputContainerStyle={{ borderBottomWidth: 0 }}
-          onChangeText={(text) => this.setState({ numeroAulas: parseInt(text) })}
+          onChangeText={(text) => this.setState({ qtAulas: parseInt(text) })}
           placeholder={"Quantidade de Aulas"} />
         <Input
           inputContainerStyle={{ borderBottomWidth: 0 }}
           keyboardType='numeric'
           containerStyle={{ marginVertical: 5, borderWidth: 1, borderRadius: 10, padding: 5, }}
-          onChangeText={(text) => this.setState({ numeroFaltas: parseInt(text) })}
+          onChangeText={(text) => this.setState({ qtFaltas: parseInt(text) })}
           placeholder={"Quantidade de Faltas"}
           underlineColorAndroid="transparent" />
 
