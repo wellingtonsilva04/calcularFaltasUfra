@@ -16,7 +16,7 @@ export default class HomeScreen extends Component {
       qtAulas={item.qtAulas}
       qtFaltas={item.qtFaltas}
       percentualPresenca={item.percentualPresenca}
-      onPress={() => ({})}
+      onPress={() => (this.props.navigation.navigate("Disciplina",{disciplina: item}))}
     />
 
   )

@@ -14,7 +14,7 @@ export default class Disciplina extends Component {
     return (
       <TouchableOpacity
         onPress={onPress}
-        style={{...styles.container,backgroundColor: percentualPresenca < 75 ? "#ff4c4c":"white"}}>
+        style={{...styles.container,backgroundColor: percentualPresenca < 75 ? "#db787a":"white"}}>
         <Text style={styles.textNome}>{nome}</Text>
         <Text style={styles.textQtAulas}>{`Faltas: ${qtFaltas}`}</Text>
         <Text style={styles.textQtAulas}>{`Aulas: ${qtAulas}`}</Text>
@@ -28,6 +28,7 @@ export default class Disciplina extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: 60,
     paddingHorizontal: 10,
     paddingVertical: 10,
     flexDirection: 'row',
@@ -44,11 +45,11 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   textQtAulas: {
-    fontSize: 16, marginHorizontal: 5,
+    fontSize: 18, marginHorizontal: 5,
   },
   textPercentualPresenca: {
     marginHorizontal: 5,
-    fontSize: 16
+    fontSize: 18
 
   }
 })
