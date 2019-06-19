@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Disciplina from "../components/disciplina";
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends Component {
+
+class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disciplinas: []
     };
   }
   _renderItem = (item) => (
@@ -16,31 +17,25 @@ export default class HomeScreen extends Component {
       qtAulas={item.qtAulas}
       qtFaltas={item.qtFaltas}
       percentualPresenca={item.percentualPresenca}
-      onPress={() => (this.props.navigation.navigate("Disciplina",{disciplina: item}))}
+      onPress={() => (this.props.navigation.navigate("Disciplina", { disciplina: item }))}
     />
 
   )
 
-  setDisciplina = (disciplina) =>{
-    const {disciplinas} = this.state;
-    console.log(disciplina);
-    this.setState({disciplinas:[...disciplinas,disciplina]});
-
-  }
   render() {
+    const {disciplinas} = this.props;
     return (
       <View style={styles.container}>
         <FlatList
-          keyExtractor={(item,index) => index.toString()}
-          data={this.state.disciplinas}
+          keyExtractor={(item, index) => index.toString()}
+          data={disciplinas}
           renderItem={({ item }) => this._renderItem(item)}
-
         />
 
         <View style={styles.viewbotaoAdd}>
           <TouchableOpacity
             style={styles.botaoAdicionar}
-            onPress={() => this.props.navigation.navigate('AddDisciplina',{setDisciplina: this.setDisciplina})}>
+            onPress={() => this.props.navigation.navigate('AddDisciplina')}>
             <Icon name="md-add" size={30} color="black" />
           </TouchableOpacity>
         </View>
@@ -48,6 +43,7 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -68,3 +64,15 @@ const styles = StyleSheet.create({
     borderRadius: 25
   }
 });
+
+
+const mapStateToProps = state => {
+  const {disciplinas} = state.disciplinasReducer;
+
+  return {
+    disciplinas
+  }
+}
+
+
+export default connect(mapStateToProps)(HomeScreen);

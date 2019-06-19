@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View,Text, KeyboardAvoidingView } from 'react-native';
 import { Input, Button } from "react-native-elements";
+import {setDisciplina  } from "../redux/Disciplinas/action";
+import { connect } from 'react-redux';
 
-export default class InserirDisciplina extends Component {
+
+class InserirDisciplina extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +15,7 @@ export default class InserirDisciplina extends Component {
       messageError: false
     };
   }
+  
   calcularPorcentagem = ()=>{
     const {nome,qtAulas,qtFaltas} = this.state;
     if (nome === ""){
@@ -21,8 +25,7 @@ export default class InserirDisciplina extends Component {
     porcentagem = porcentagem * 100;
     console.log(porcentagem);
 
-    const { navigation } = this.props;
-    const  setDisciplina = navigation.getParam('setDisciplina', 'NO-ID');
+    const { navigation, setDisciplina } = this.props;
     setDisciplina({nome,qtAulas,qtFaltas,percentualPresenca: porcentagem.toFixed(2)})
     navigation.goBack();
     
@@ -30,6 +33,7 @@ export default class InserirDisciplina extends Component {
   }
   render() {
     const {messageError,nome,qtAulas,qtFaltas} = this.state;
+    
     return (
       <KeyboardAvoidingView style={{marginHorizontal: 10,}} behavior="padding" enabled>
         
@@ -66,3 +70,15 @@ export default class InserirDisciplina extends Component {
     );
   }
 }
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setDisciplina: (disciplina) => {
+      dispatch(setDisciplina(disciplina))
+    }
+
+  }
+}
+
+export default connect(null,mapDispatchToProps)(InserirDisciplina);
