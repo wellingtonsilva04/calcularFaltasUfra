@@ -1,41 +1,32 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default class Disciplina extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const Disciplina = props => {
 
-  render() {
-    const { onPress, nome, qtFaltas,qtAulas, percentualPresenca } = this.props;
-    console.log(qtFaltas);
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={{...styles.container,backgroundColor: percentualPresenca < 75 ? "#db787a":"white"}}>
-        <Text style={styles.textNome}>{nome}</Text>
-        <Text style={styles.textQtAulas}>{`F: ${qtFaltas}/${qtAulas}`}</Text>
-        <Text style={styles.textPercentualPresenca}>P: {percentualPresenca}%</Text>
-
-      </TouchableOpacity>
-    );
-  }
+  const { onPress, nome, qtFaltas, qtAulas, percentualPresenca } = props;
+  console.log(qtFaltas);
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{ ...styles.container, backgroundColor: percentualPresenca < 75 ? "#db787a" : "white" }}>
+      <Text style={styles.textNome}>{nome}</Text>
+      <Text style={styles.textQtAulas}>{`F: ${qtFaltas}/${qtAulas}`}</Text>
+      <Text style={styles.textPercentualPresenca}>P: {percentualPresenca}%</Text>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#cccccc",
-    marginBottom: StyleSheet.hairlineWidth,
+    borderColor: "#cccccc",
+    marginBottom: 5,
     backgroundColor: "white",
   },
   textNome: {
@@ -52,3 +43,5 @@ const styles = StyleSheet.create({
 
   }
 })
+
+export default Disciplina;
