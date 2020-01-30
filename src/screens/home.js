@@ -26,13 +26,11 @@ const HomeScreen = props => {
         renderItem={({ item }) => _renderItem(item)}
       />
 
-      <View style={styles.viewbotaoAdd}>
-        <TouchableOpacity
-          style={styles.botaoAdicionar}
-          onPress={() => props.navigation.navigate('AddDisciplina')}>
-          <Icon name="md-add" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.botaoAdicionar}
+        onPress={() => props.navigation.navigate('AddDisciplina')}>
+        <Icon name="md-add" size={30} color="black" />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -41,20 +39,23 @@ const HomeScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 5,
+    paddingTop: 5,
     justifyContent: 'center',
-    backgroundColor: '#e3e3e3',
-  },
-  viewbotaoAdd: {
-    alignSelf: 'flex-end',
-    padding: 20
+    backgroundColor: '#f3f3f3',
   },
   botaoAdicionar: {
+    position: "absolute",
+    bottom: 20,
+    right: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    borderRadius: 25,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#dbd9d9",
+    backgroundColor: "white",
     height: 50,
     width: 50,
-    borderRadius: 25
   }
 });
 

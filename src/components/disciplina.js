@@ -8,7 +8,7 @@ const Disciplina = props => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{ ...styles.container, backgroundColor: percentualPresenca < 75 ? "#db787a" : "white" }}>
+      style={{ ...styles.container, backgroundColor: percentualPresenca < 75 ? "#f09090" : "white" }}>
       <Text style={styles.textNome}>{nome}</Text>
       <Text style={styles.textQtAulas}>{`F: ${qtFaltas}/${qtAulas}`}</Text>
       <Text style={styles.textPercentualPresenca}>P: {percentualPresenca}%</Text>
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#cccccc",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#d8d7d7",
     marginBottom: 5,
     backgroundColor: "white",
   },
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   textQtAulas: {
-    fontSize: 16, marginHorizontal: 5,
+    fontSize: 16,
+    marginHorizontal: 5,
   },
   textPercentualPresenca: {
     marginHorizontal: 5,
