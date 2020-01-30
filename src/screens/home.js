@@ -1,29 +1,35 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Disciplina from "../components/disciplina";
+import { removeDisciplina } from "../redux/Disciplinas/action";
 import { connect } from 'react-redux';
 
 const HomeScreen = props => {
 
-  _renderItem = (item) => (
+
+  const renderItem = ({ item, index }) => (
+
     <Disciplina
       nome={item.nome}
       qtAulas={item.qtAulas}
       qtFaltas={item.qtFaltas}
       percentualPresenca={item.percentualPresenca}
       onPress={() => props.navigation.navigate("Disciplina", { disciplina: item })}
+      onLongPress={() => {
+        removeDisciplina(index)
+        Alert.alert('removido!: ')
+      }}
     />
-
   );
 
-  const { disciplinas } = props;
+  const { disciplinas, removeDisciplina } = props;
   return (
     <View style={styles.container}>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={disciplinas}
-        renderItem={({ item }) => _renderItem(item)}
+        renderItem={({ item, index }) => renderItem({ item, index })}
       />
 
       <TouchableOpacity
@@ -68,5 +74,14 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    removeDisciplina: (index) => {
+      dispatch(removeDisciplina(index))
+    }
 
-export default connect(mapStateToProps)(HomeScreen);
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

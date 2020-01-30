@@ -1,15 +1,19 @@
-import { SET_DISCIPLINA } from "./action";
+import { SET_DISCIPLINA, REMOVE_DISCIPLINA } from "./action";
 const initialState = {
-    disciplinas: []
+  disciplinas: []
 }
 
 export default (state = initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
 
-        case SET_DISCIPLINA:
-            return { ...state, disciplinas: [...state.disciplinas, action.payload] };
+    case SET_DISCIPLINA:
+      return { ...state, disciplinas: [...state.disciplinas, action.payload] };
 
-        default:
-            return state
-    }
+    case REMOVE_DISCIPLINA:
+      return { disciplinas: state.disciplinas.filter((disciplina, idx) => idx !== action.payload) };
+
+
+    default:
+      return state
+  }
 };

@@ -3,11 +3,12 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const Disciplina = props => {
 
-  const { onPress, nome, qtFaltas, qtAulas, percentualPresenca } = props;
-  console.log(qtFaltas);
+  const { onPress, onLongPress, nome, qtFaltas, qtAulas, percentualPresenca } = props;
+
   return (
     <TouchableOpacity
       onPress={onPress}
+      onLongPress={onLongPress}
       style={{ ...styles.container, backgroundColor: percentualPresenca < 75 ? "#f09090" : "white" }}>
       <Text style={styles.textNome}>{nome}</Text>
       <Text style={styles.textQtAulas}>{`F: ${qtFaltas}/${qtAulas}`}</Text>
@@ -35,8 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   textQtAulas: {
-    fontSize: 16,
-    marginHorizontal: 5,
+    fontSize: 16, marginHorizontal: 5,
   },
   textPercentualPresenca: {
     marginHorizontal: 5,
