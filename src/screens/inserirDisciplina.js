@@ -10,11 +10,28 @@ const InserirDisciplina = props => {
   const [qtFaltas, setQtfaltas] = useState(0);
   const [qtAulas, setQtAulas] = useState(0);
   const [messageError, setMessageError] = useState(false);
+  const [messageErrorQtFaltas, setMessageErrorQtfaltas] = useState(false);
 
-  const calcularPorcentagem = () => {
+  const validateQtFaltas = () => {
+    if (qtFaltas > qtAulas) {
+      setMessageErrorQtfaltas(true)
+      return null
+    }
+    setMessageErrorQtfaltas(false)
+  }
+  const validateNome = () => {
     if (nome === "") {
       setMessageError(true);
+      return null
     }
+    setMessageError(false)
+  }
+
+  const calcularPorcentagem = () => {
+    if (messageError || messageErrorQtFaltas) {
+      return null
+    }
+
     let porcentagem = (qtAulas - qtFaltas) / qtAulas;
     porcentagem = porcentagem * 100;
 
@@ -30,6 +47,7 @@ const InserirDisciplina = props => {
         inputContainerStyle={{ borderBottomWidth: 0, marginHorizontal: 10, }}
         errorMessage={messageError ? "* Escolha um nome pra disciplina" : ""}
         onChangeText={(text) => setNome(text)}
+        onEndEditing={() => validateNome()}
         placeholder={"Disciplina"}
       />
       <Input
@@ -44,7 +62,9 @@ const InserirDisciplina = props => {
         keyboardType='numeric'
         containerStyle={{ marginVertical: 5, borderWidth: 1, borderRadius: 10, padding: 5, }}
         onChangeText={(text) => setQtfaltas(parseInt(text))}
+        errorMessage={messageErrorQtFaltas ? "* Quantidade de faltas deve ser menor que a quantidade de aulas." : ""}
         placeholder={"Quantidade de Faltas"}
+        onEndEditing={() => validateQtFaltas()}
         underlineColorAndroid="transparent"
       />
 
