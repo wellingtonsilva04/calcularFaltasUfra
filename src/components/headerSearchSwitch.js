@@ -8,14 +8,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export default function HeaderSearchSwitch(props) {
   const [selectHeader, setSelectHeader] = useState(false);
   const { search, setSearch } = props;
+  const searchBar = React.createRef();
+
 
   if (selectHeader) {
     return <SearchBar
+      ref={searchBar}
       platform='android'
       placeholder='pesquisar'
       onChangeText={(text) => setSearch(text)}
-      onCancel={() => setSelectHeader(false)}
+      onCancel={() => {
+        searchBar.current.clear();
+        setSelectHeader(false)
+      }}
       value={search}
+      autoFocus={true}
     />
   }
   return (

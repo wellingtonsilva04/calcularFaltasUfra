@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import HeaderSearchSwitch from '../components/headerSearchSwitch';
 
 const HomeScreen = props => {
-
+  const { disciplinas, removeDisciplina } = props;
   const [search, setSearch] = useState('');
 
   const renderItem = ({ item, index }) => (
@@ -24,8 +24,14 @@ const HomeScreen = props => {
       }}
     />
   );
+  const filterDisciplinas = () => {
+    return disciplinas.filter(
+      (disciplina) => disciplina.nome.includes(search)
+    );
 
-  const { disciplinas, removeDisciplina } = props;
+  }
+
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderSearchSwitch search={search} setSearch={setSearch} />
@@ -33,7 +39,7 @@ const HomeScreen = props => {
       <View style={styles.container}>
         <FlatList
           keyExtractor={(item, index) => index.toString()}
-          data={disciplinas}
+          data={filterDisciplinas()}
           renderItem={({ item, index }) => renderItem({ item, index })}
         />
 
