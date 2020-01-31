@@ -1,12 +1,14 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Disciplina from "../components/disciplina";
 import { removeDisciplina } from "../redux/Disciplinas/action";
 import { connect } from 'react-redux';
+import HeaderSearchSwitch from '../components/headerSearchSwitch';
 
 const HomeScreen = props => {
 
+  const [search, setSearch] = useState('');
 
   const renderItem = ({ item, index }) => (
 
@@ -25,18 +27,22 @@ const HomeScreen = props => {
 
   const { disciplinas, removeDisciplina } = props;
   return (
-    <View style={styles.container}>
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={disciplinas}
-        renderItem={({ item, index }) => renderItem({ item, index })}
-      />
+    <View style={{ flex: 1 }}>
+      <HeaderSearchSwitch search={search} setSearch={setSearch} />
 
-      <TouchableOpacity
-        style={styles.botaoAdicionar}
-        onPress={() => props.navigation.navigate('AddDisciplina')}>
-        <Icon name="md-add" size={30} color="black" />
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={disciplinas}
+          renderItem={({ item, index }) => renderItem({ item, index })}
+        />
+
+        <TouchableOpacity
+          style={styles.botaoAdicionar}
+          onPress={() => props.navigation.navigate('AddDisciplina')}>
+          <Icon name="md-add" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
